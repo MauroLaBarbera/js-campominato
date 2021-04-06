@@ -8,9 +8,9 @@ o raggiunge il numero massimo possibile di numeri consentiti.
 cioè il numero di volte che l’utente ha inserito un numero consentito.*/
 
 //NUMERO MASSIMO DI NUMERI DA GENERARE
-var numeroMax = 100;
+var numeroMax = 10;
 //NUMERO MASSIMO DI BOMBE DA GENERARE
-var numeroBombe = 16;
+var numeroBombe = 2;
 //PROBABILITA' DI SUPERARE IL LIVELLO 
 var possibilita = numeroMax - numeroBombe;
 //ARRAY VUOTO DOVE INSERIREMO LE BOMBE RANDOM DA CREARE
@@ -22,7 +22,7 @@ var utente = 0;
 
 //GENERAZIONE BOMBE
 while (listaBomb.length < numeroBombe) {
-    var bomba = numeroRandom(numeroBombe);
+    var bomba = numeroRandom(numeroMax);
 
 //CREIAMO UN IF PER IMPEDIRE DI GENERARE DOPPIONI DI BOMBE    
     if (! listaBomb.includes(bomba)) {
@@ -34,12 +34,39 @@ console.log(listaBomb);
 
 //FUNZIONE GEN NUMERI RANDOM
 function numeroRandom(max) {
-    return Math.floor (Math.random() * max) +1;
+    return Math.floor (Math.random() * max ) + 1;
 }
 
+/**
+ * CREAZIONE LOOP GIOCO
+ */
 
+//CREIAMO UN WHILE CHE DEVE RISPETTARE LE SEGUENTI REGOLE: DOBBIAMO ESSERE SOTTO IL NUMERO DI POSSIBILITA' E IL NUM NON DEVE ESSERE UNA BOMBA
+while ( (numConsentiti.length < possibilita) && (! listaBomb.includes(utente)) ) {
+    //FACCIAMO SCEGLIERE ALL'UTENTE UN NUMERO
+    utente = parseInt(prompt('Inserisci un numero da 1 a ' + numeroMax + '\nNumeri indovinati: ' + numConsentiti.length + ' di ' + possibilita) );
+    //CONTROLLIAMO SE L'UTENTE HA EFFETTIVAMENTE INSERITO UN NUMERO E SE RIENTRA NEL RANGE DI 1 ED IL NUMERO MASSIMO
+    while (isNaN(utente) ||  1 > utente || utente > numeroMax) {
+        utente = parseInt(prompt('Valore non valido. Inserisci un numero da 1 a ' + numeroMax ) );
 
+    }
+    console.log(utente);
+    //ADESSO CONTROLLIAMO SE IL NUMERO INSERITO DALL'UTENTE E' UGUALE AL NUMERO CHE RAPPRESENTA LA BOMBA O SE HA GIA' INSERITO QUEL NUMERO
+    if(listaBomb.includes(utente) ) {
+        alert('Mi spiace ma hai perso =( \nHai provato con successo ' + numConsentiti.length + ' volte prima di morire.');
+    } else if (numConsentiti.includes(utente)) {
+        alert('Numero già inseirito, inserisci un altro numero')
+    } else {
+        numConsentiti.push(utente);
+    }
 
+    //CONTROLLO RAGGIUNGIMENTO DELLE POSSIBILITA'
+    if (numConsentiti.length === possibilita) {
+        alert('Complimenti!! Hai vinto!!  =D');
+    }
+}
+
+console.log(numConsentiti);
 
 
 
