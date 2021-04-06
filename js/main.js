@@ -11,14 +11,46 @@ cioè il numero di volte che l’utente ha inserito un numero consentito.*/
 var numeroMax = 10;
 //NUMERO MASSIMO DI BOMBE DA GENERARE
 var numeroBombe = 2;
-//PROBABILITA' DI SUPERARE IL LIVELLO 
-var possibilita = numeroMax - numeroBombe;
+
 //ARRAY VUOTO DOVE INSERIREMO LE BOMBE RANDOM DA CREARE
 var listaBomb = [];
 //ARRAY VUOTO DA RIMEMPIRE CON I NUMERI INSERITI DALL'UTENTE
 var numConsentiti = [];
 //NUMERO INSERITO DALL'UTENTE
 var utente = 0; 
+
+
+/*BONUS: (da fare solo se funziona tutto il resto)
+all’inizio il software richiede anche una difficoltà all’utente che cambia il 
+range di numeri casuali:
+con difficoltà 0 => tra 1 e 100
+con difficoltà 1 => tra 1 e 80
+con difficoltà 2 => tra 1 e 50*/
+
+//CHIEDIAMO ALL'UTENTE DI SCEGLIERE IL LIVELLO DI DIFFICOLTA'
+var livello = parseInt( prompt ('Scegli la difficoltà da 0 a 2').trim() );
+
+//CONTROLLIAMO SE IL NUMERO INSERITO SIA VERAMENTE UN NUMERO E CHE NON SFORI I RANGE
+while (isNaN(livello) || 0 > livello || 2 < livello) {
+     livello = parseInt( prompt ('Scegli la difficoltà da 0 a 2').trim() );
+}
+
+
+switch (livello) {
+    case 0: 
+        numeroMax = 10;
+    break;
+    case 1: 
+        numeroMax = 50;
+        numeroBombe= 10;
+        break;
+    case 2: 
+        numeroMax = 70;
+        numeroBombe= 20;
+}
+
+//PROBABILITA' DI SUPERARE IL LIVELLO 
+var possibilita = numeroMax - numeroBombe;
 
 //GENERAZIONE BOMBE
 while (listaBomb.length < numeroBombe) {
@@ -67,15 +99,3 @@ while ( (numConsentiti.length < possibilita) && (! listaBomb.includes(utente)) )
 }
 
 console.log(numConsentiti);
-
-
-
-
-
-
-/*BONUS: (da fare solo se funziona tutto il resto)
-all’inizio il software richiede anche una difficoltà all’utente che cambia il 
-range di numeri casuali:
-con difficoltà 0 => tra 1 e 100
-con difficoltà 1 => tra 1 e 80
-con difficoltà 2 => tra 1 e 50*/
